@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+
+<html lang="pl"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Automatyczne podlewanie - EcoGrow</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-container": "#2e7d32",
+                        "secondary": "#286b33",
+                        "surface-dim": "#d5dcce",
+                        "inverse-surface": "#2c3228",
+                        "on-surface": "#171d14",
+                        "inverse-primary": "#88d982",
+                        "on-background": "#171d14",
+                        "surface-container-highest": "#dee5d6",
+                        "on-secondary-fixed": "#002107",
+                        "secondary-container": "#abf4ac",
+                        "inverse-on-surface": "#ecf3e4",
+                        "surface": "#f5fced",
+                        "on-tertiary": "#ffffff",
+                        "outline": "#707a6c",
+                        "outline-variant": "#bfcaba",
+                        "surface-tint": "#1b6d24",
+                        "on-tertiary-fixed": "#07200e",
+                        "on-tertiary-fixed-variant": "#334d37",
+                        "secondary-fixed-dim": "#90d792",
+                        "surface-container-low": "#eff6e7",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed-variant": "#07521d",
+                        "surface-container": "#e9f0e1",
+                        "tertiary-fixed-dim": "#b1ceb2",
+                        "error-container": "#ffdad6",
+                        "on-error": "#ffffff",
+                        "primary": "#0d631b",
+                        "on-error-container": "#93000a",
+                        "on-secondary-container": "#2e7238",
+                        "surface-bright": "#f5fced",
+                        "tertiary": "#415b45",
+                        "tertiary-container": "#59745c",
+                        "primary-fixed": "#a3f69c",
+                        "surface-variant": "#dee5d6",
+                        "surface-container-lowest": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed": "#cceacd",
+                        "primary-fixed-dim": "#88d982",
+                        "on-surface-variant": "#40493d",
+                        "background": "#f5fced",
+                        "on-primary-container": "#cbffc2",
+                        "surface-container-high": "#e3ebdc",
+                        "on-tertiary-container": "#daf9db",
+                        "on-primary-fixed": "#002204",
+                        "secondary-fixed": "#abf4ac",
+                        "on-primary-fixed-variant": "#005312"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "base": "4px",
+                        "md": "16px",
+                        "xl": "32px",
+                        "xs": "8px",
+                        "gutter": "16px",
+                        "2xl": "48px",
+                        "lg": "24px",
+                        "margin-tablet": "40px",
+                        "sm": "12px",
+                        "margin-mobile": "20px"
+                    },
+                    fontFamily: {
+                        "headline-md": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "title-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "display-lg": ["Inter"]
+                    },
+                    fontSize: {
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "label-lg": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "title-lg": ["20px", { "lineHeight": "28px", "fontWeight": "500" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-md": ["11px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "600" }],
+                        "display-lg": ["44px", { "lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #f5fced; } /* Fallback background */
+        /* Custom toggle switch styles for botanical theme */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #0d631b;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #0d631b;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background antialiased min-h-screen flex flex-col font-body-md text-body-md selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-mobile h-16 shadow-sm bg-surface">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings: 'FILL' 1;">eco</span>
+<h1 class="text-headline-md font-headline-md font-bold text-primary">EcoGrow</h1>
+</div>
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container font-label-lg text-label-lg uppercase overflow-hidden border-2 border-surface-container">
+<span class="material-symbols-outlined text-sm">person</span>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow pt-[88px] pb-[100px] px-margin-mobile md:px-margin-tablet max-w-[1024px] mx-auto w-full">
+<!-- Header -->
+<div class="mb-lg">
+<h2 class="text-headline-lg-mobile font-headline-lg-mobile text-on-surface">Automatyczne podlewanie</h2>
+<p class="text-body-md font-body-md text-on-surface-variant mt-xs">Zarządzaj harmonogramami nawadniania.</p>
+</div>
+<!-- Active Schedules List -->
+<section class="mb-xl">
+<h3 class="text-title-lg font-title-lg text-on-surface mb-md">Aktywne</h3>
+<div class="flex flex-col gap-sm">
+<!-- Schedule Card 1 -->
+<div class="bg-surface-container-lowest rounded-lg p-md shadow-[0_4px_8px_rgba(46,125,50,0.08)] flex items-center justify-between border border-surface-container-low transition-transform active:scale-[0.98]">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full bg-secondary-container/30 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">routine</span>
+</div>
+<div>
+<h4 class="text-body-lg font-body-lg font-medium text-on-surface">Poranne podlewanie</h4>
+<div class="flex items-center gap-xs mt-1">
+<span class="bg-surface-container px-2 py-0.5 rounded text-label-md font-label-md text-on-surface-variant">06:30</span>
+<span class="text-label-md font-label-md text-outline">•</span>
+<span class="text-label-md font-label-md text-on-surface-variant">Zawór 1</span>
+<span class="text-label-md font-label-md text-outline">•</span>
+<span class="text-label-md font-label-md text-on-surface-variant">2 min</span>
+</div>
+</div>
+</div>
+<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 border-surface-container appearance-none cursor-pointer z-10 transition-all duration-300 right-0 border-primary" id="toggle1" name="toggle1" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-primary cursor-pointer transition-colors duration-300" for="toggle1"></label>
+</div>
+</div>
+<!-- Schedule Card 2 -->
+<div class="bg-surface-container-lowest rounded-lg p-md shadow-[0_4px_8px_rgba(46,125,50,0.08)] flex items-center justify-between border border-surface-container-low transition-transform active:scale-[0.98]">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full bg-secondary-container/30 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">nightlight</span>
+</div>
+<div>
+<h4 class="text-body-lg font-body-lg font-medium text-on-surface">Wieczorne podlewanie</h4>
+<div class="flex items-center gap-xs mt-1">
+<span class="bg-surface-container px-2 py-0.5 rounded text-label-md font-label-md text-on-surface-variant">19:00</span>
+<span class="text-label-md font-label-md text-outline">•</span>
+<span class="text-label-md font-label-md text-on-surface-variant">Zawór 2</span>
+<span class="text-label-md font-label-md text-outline">•</span>
+<span class="text-label-md font-label-md text-on-surface-variant">3 min</span>
+</div>
+</div>
+</div>
+<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 border-surface-container appearance-none cursor-pointer z-10 transition-all duration-300 right-0 border-primary" id="toggle2" name="toggle2" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-primary cursor-pointer transition-colors duration-300" for="toggle2"></label>
+</div>
+</div>
+</div>
+</section>
+<!-- Add Schedule Form Section -->
+<section class="bg-surface-container rounded-xl p-lg shadow-sm border border-surface-container-highest">
+<div class="flex items-center gap-sm mb-lg">
+<span class="material-symbols-outlined text-primary">add_circle</span>
+<h3 class="text-title-lg font-title-lg text-on-surface">Dodaj harmonogram</h3>
+</div>
+<form class="space-y-md">
+<!-- Name -->
+<div>
+<label class="block text-label-lg font-label-lg text-on-surface-variant mb-xs ml-2">Nazwa</label>
+<input class="w-full bg-surface-container-lowest text-on-surface text-body-lg font-body-lg rounded-full px-lg py-sm border-2 border-transparent focus:border-primary focus:ring-0 transition-colors placeholder:text-outline-variant shadow-sm" placeholder="np. Popołudniowa mgiełka" type="text"/>
+</div>
+<!-- Days -->
+<div>
+<label class="block text-label-lg font-label-lg text-on-surface-variant mb-xs ml-2">Dni powtarzania</label>
+<div class="flex justify-between gap-1">
+<button class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center text-label-lg font-label-lg transition-transform active:scale-95 shadow-sm" type="button">P</button>
+<button class="w-10 h-10 rounded-full bg-surface-container-lowest text-on-surface-variant border border-outline-variant flex items-center justify-center text-label-lg font-label-lg transition-transform active:scale-95 shadow-sm" type="button">W</button>
+<button class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center text-label-lg font-label-lg transition-transform active:scale-95 shadow-sm" type="button">Ś</button>
+<button class="w-10 h-10 rounded-full bg-surface-container-lowest text-on-surface-variant border border-outline-variant flex items-center justify-center text-label-lg font-label-lg transition-transform active:scale-95 shadow-sm" type="button">C</button>
+<button class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center text-label-lg font-label-lg transition-transform active:scale-95 shadow-sm" type="button">P</button>
+<button class="w-10 h-10 rounded-full bg-surface-container-lowest text-on-surface-variant border border-outline-variant flex items-center justify-center text-label-lg font-label-lg transition-transform active:scale-95 shadow-sm" type="button">S</button>
+<button class="w-10 h-10 rounded-full bg-surface-container-lowest text-on-surface-variant border border-outline-variant flex items-center justify-center text-label-lg font-label-lg transition-transform active:scale-95 shadow-sm" type="button">N</button>
+</div>
+</div>
+<!-- Time & Valve Grid -->
+<div class="grid grid-cols-2 gap-md">
+<div>
+<label class="block text-label-lg font-label-lg text-on-surface-variant mb-xs ml-2">Godzina</label>
+<input class="w-full bg-surface-container-lowest text-on-surface text-body-lg font-body-lg rounded-full px-lg py-sm border-2 border-transparent focus:border-primary focus:ring-0 transition-colors shadow-sm" type="time" value="08:00"/>
+</div>
+<div>
+<label class="block text-label-lg font-label-lg text-on-surface-variant mb-xs ml-2">Zawór</label>
+<select class="w-full bg-surface-container-lowest text-on-surface text-body-lg font-body-lg rounded-full px-lg py-sm border-2 border-transparent focus:border-primary focus:ring-0 transition-colors shadow-sm appearance-none">
+<option>Zawór 1</option>
+<option>Zawór 2</option>
+<option>Oba</option>
+</select>
+</div>
+</div>
+<!-- Duration -->
+<div>
+<label class="block text-label-lg font-label-lg text-on-surface-variant mb-xs ml-2">Czas trwania (minuty)</label>
+<input class="w-full bg-surface-container-lowest text-on-surface text-body-lg font-body-lg rounded-full px-lg py-sm border-2 border-transparent focus:border-primary focus:ring-0 transition-colors shadow-sm" min="1" type="number" value="5"/>
+</div>
+<!-- Safety Toggle -->
+<div class="flex items-center justify-between bg-surface-container-low p-md rounded-lg mt-sm border border-surface-container-highest">
+<div class="flex items-center gap-sm pr-4">
+<span class="material-symbols-outlined text-outline">water_drop</span>
+<span class="text-body-md font-body-md text-on-surface">Nie uruchamiaj, jeśli poziom wody poniżej 10%</span>
+</div>
+<div class="relative inline-block w-12 flex-shrink-0 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 border-surface-container appearance-none cursor-pointer z-10 transition-all duration-300 right-0 border-primary" id="toggle-safety" name="toggle-safety" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-primary cursor-pointer transition-colors duration-300" for="toggle-safety"></label>
+</div>
+</div>
+<!-- Submit Button -->
+<button class="w-full mt-lg bg-primary text-on-primary h-14 rounded-full text-body-lg font-body-lg font-medium shadow-md transition-transform active:scale-[0.98] flex items-center justify-center gap-2 hover:bg-surface-tint" type="button">
+                    Zapisz harmonogram
+                </button>
+</form>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-3 pb-safe bg-surface shadow-[0_-4px_16px_rgba(46,125,50,0.05)] rounded-t-lg z-50 md:hidden">
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-high transition-all rounded-xl">
+<span class="material-symbols-outlined">home</span>
+<span class="text-label-lg font-label-lg mt-1">Start</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-high transition-all rounded-xl">
+<span class="material-symbols-outlined">radar</span>
+<span class="text-label-lg font-label-lg mt-1">Szukaj</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-high transition-all rounded-xl">
+<span class="material-symbols-outlined">settings_input_component</span>
+<span class="text-label-lg font-label-lg mt-1">Sterowanie</span>
+</div>
+<!-- Active Tab -->
+<div class="flex flex-col items-center justify-center text-primary bg-secondary-container/40 rounded-xl px-4 py-1 scale-95 transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">calendar_today</span>
+<span class="text-label-lg font-label-lg mt-1 font-bold">Harmonogram</span>
+</div>
+</nav>
+</body></html>

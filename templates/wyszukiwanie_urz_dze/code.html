@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+
+<html lang="pl"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Szukaj szklarni - EcoGrow</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-container": "#2e7d32",
+                    "secondary": "#286b33",
+                    "surface-dim": "#d5dcce",
+                    "inverse-surface": "#2c3228",
+                    "on-surface": "#171d14",
+                    "inverse-primary": "#88d982",
+                    "on-background": "#171d14",
+                    "surface-container-highest": "#dee5d6",
+                    "on-secondary-fixed": "#002107",
+                    "secondary-container": "#abf4ac",
+                    "inverse-on-surface": "#ecf3e4",
+                    "surface": "#f5fced",
+                    "on-tertiary": "#ffffff",
+                    "outline": "#707a6c",
+                    "outline-variant": "#bfcaba",
+                    "surface-tint": "#1b6d24",
+                    "on-tertiary-fixed": "#07200e",
+                    "on-tertiary-fixed-variant": "#334d37",
+                    "secondary-fixed-dim": "#90d792",
+                    "surface-container-low": "#eff6e7",
+                    "on-primary": "#ffffff",
+                    "on-secondary-fixed-variant": "#07521d",
+                    "surface-container": "#e9f0e1",
+                    "tertiary-fixed-dim": "#b1ceb2",
+                    "error-container": "#ffdad6",
+                    "on-error": "#ffffff",
+                    "primary": "#0d631b",
+                    "on-error-container": "#93000a",
+                    "on-secondary-container": "#2e7238",
+                    "surface-bright": "#f5fced",
+                    "tertiary": "#415b45",
+                    "tertiary-container": "#59745c",
+                    "primary-fixed": "#a3f69c",
+                    "surface-variant": "#dee5d6",
+                    "surface-container-lowest": "#ffffff",
+                    "error": "#ba1a1a",
+                    "on-secondary": "#ffffff",
+                    "tertiary-fixed": "#cceacd",
+                    "primary-fixed-dim": "#88d982",
+                    "on-surface-variant": "#40493d",
+                    "background": "#f5fced",
+                    "on-primary-container": "#cbffc2",
+                    "surface-container-high": "#e3ebdc",
+                    "on-tertiary-container": "#daf9db",
+                    "on-primary-fixed": "#002204",
+                    "secondary-fixed": "#abf4ac",
+                    "on-primary-fixed-variant": "#005312"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "4px",
+                    "md": "16px",
+                    "xl": "32px",
+                    "xs": "8px",
+                    "gutter": "16px",
+                    "2xl": "48px",
+                    "lg": "24px",
+                    "margin-tablet": "40px",
+                    "sm": "12px",
+                    "margin-mobile": "20px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Inter"],
+                    "label-lg": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "title-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "display-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "label-lg": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "500"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-md": ["11px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "display-lg": ["44px", {"lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .pb-safe { padding-bottom: env(safe-area-inset-bottom, 20px); }
+        .radar-pulse-1 { animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite; }
+        .radar-pulse-2 { animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite; animation-delay: 0.5s; }
+        .radar-pulse-3 { animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite; animation-delay: 1s; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col font-body-md text-body-md">
+<header class="bg-surface shadow-sm flex justify-between items-center w-full px-margin-mobile h-16 docked full-width top-0 z-40 sticky">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">eco</span>
+</div>
+<h1 class="text-headline-md font-headline-md font-bold text-primary">Wyszukaj szklarnię</h1>
+<div class="flex items-center">
+<div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center overflow-hidden border border-outline-variant">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">person</span>
+</div>
+</div>
+</header>
+<main class="flex-1 px-margin-mobile py-lg flex flex-col pb-[100px]">
+<div class="text-center mb-xl max-w-sm mx-auto">
+<p class="text-body-md font-body-md text-on-surface-variant">Aplikacja wyszukuje sieci Wi-Fi udostępniane przez kontrolery ESP32 w Twoim otoczeniu.</p>
+</div>
+<div class="relative flex justify-center items-center h-48 mb-xl">
+<div class="absolute w-40 h-40 bg-primary-fixed/20 rounded-full radar-pulse-1"></div>
+<div class="absolute w-28 h-28 bg-primary-fixed/40 rounded-full radar-pulse-2"></div>
+<div class="absolute w-16 h-16 bg-primary-fixed-dim/60 rounded-full radar-pulse-3"></div>
+<div class="relative z-10 w-16 h-16 bg-primary rounded-full flex justify-center items-center shadow-[0_4px_16px_rgba(46,125,50,0.2)]">
+<span class="material-symbols-outlined text-on-primary text-[32px]">radar</span>
+</div>
+</div>
+<div class="flex flex-col gap-sm">
+<div class="bg-surface-container-lowest rounded-lg p-md shadow-sm border border-outline-variant/30 relative overflow-hidden active:scale-[0.98] transition-transform">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-primary rounded-l-lg"></div>
+<div class="flex justify-between items-center pl-2">
+<div class="flex flex-col gap-1">
+<span class="text-title-lg font-title-lg text-on-surface">Greenhouse_ESP32_01</span>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-secondary text-[16px]">wifi</span>
+<span class="text-label-md font-label-md text-on-surface-variant">90%</span>
+<span class="px-2 py-0.5 ml-2 rounded-full bg-secondary-container text-on-secondary-container text-label-md font-label-md">Połączono</span>
+</div>
+</div>
+<button class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center text-outline hover:bg-surface-container hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</button>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-lg p-md shadow-sm border border-outline-variant/30 flex justify-between items-center active:scale-[0.98] transition-transform">
+<div class="flex flex-col gap-1">
+<span class="text-title-lg font-title-lg text-on-surface">Greenhouse_ESP32_02</span>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-outline text-[16px]">wifi_2_bar</span>
+<span class="text-label-md font-label-md text-on-surface-variant">65%</span>
+<span class="px-2 py-0.5 ml-2 rounded-full border border-outline text-on-surface-variant text-label-md font-label-md">Dostępna</span>
+</div>
+</div>
+<button class="px-4 py-2 h-10 rounded-full bg-primary text-on-primary text-label-lg font-label-lg shadow-[0_4px_8px_rgba(46,125,50,0.15)] active:scale-95 transition-transform">
+                    Połącz
+                </button>
+</div>
+</div>
+<div class="mt-xl flex-1 flex flex-col justify-end">
+<button class="w-full h-[56px] rounded-full bg-surface-container-highest border border-outline-variant text-on-surface text-label-lg font-label-lg flex items-center justify-center gap-xs active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[20px]">refresh</span>
+                Skanuj ponownie
+            </button>
+</div>
+</main>
+<nav class="bg-surface fixed bottom-0 w-full z-50 rounded-t-lg border-t border-outline-variant shadow-md fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-3 pb-safe md:hidden">
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined">home</span>
+<span class="text-label-lg font-label-lg mt-1">Start</span>
+</button>
+<button class="flex flex-col items-center justify-center text-primary bg-secondary-container/40 rounded-xl px-4 py-1 scale-90 duration-200 ease-in-out">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">radar</span>
+<span class="text-label-lg font-label-lg mt-1">Szukaj</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined">settings_input_component</span>
+<span class="text-label-lg font-label-lg mt-1">Sterowanie</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="text-label-lg font-label-lg mt-1">Harmonogram</span>
+</button>
+</nav>
+</body></html>

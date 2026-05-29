@@ -1,0 +1,6 @@
+Kontroler - https://botland.com.pl/esp32/8893-esp32-wifi-bt-42-platforma-z-modulem-esp-wroom-32-zgodny-z-esp32-devkit-5904422337438.html
+Przetwornik - https://botland.com.pl/przetwornice-step-down/8103-przetwornica-step-down-xl4015-13v-36v-5a-5904422336202.html
+Czujnik odległości - https://botland.com.pl/ultradzwiekowe-czujniki-odleglosci/7266-ultradzwiekowy-czujnik-odleglosci-jsn-sr04t-20-450cm-z-sonda-wodoodporna-5904422310066.html
+Konwerter poziomów - https://botland.com.pl/rozszerzenia-gpio-do-raspberry-pi/1513-konwerter-poziomow-logicznych-33v5v-i2c-uart-spi-5904422330125.html
+Moduł przekaźnikowy - https://botland.com.pl/przekazniki-przekazniki-arduino/2579-modul-przekaznikow-4-kanaly-z-optoizolacja-styki-10a-250vac-cewka-5v-5904422330996.html
+beczka - https://allegro.pl/oferta/beczka-plastikowa-200-220l-gratis-kran-twarda-na-deszczowke-12056563936

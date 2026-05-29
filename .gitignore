@@ -1,0 +1,58 @@
+# IDE / editor
+.vs/
+.vscode/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# OS
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+mobile-ionic/vite-dev*.log
+
+# .NET / MAUI
+bin/
+obj/
+.dotnet/
+TestResults/
+*.nupkg
+*.snupkg
+MobileApp/bin/
+MobileApp/obj/
+
+# Node / Ionic / Vite
+node_modules/
+dist/
+.vite/
+mobile-ionic/node_modules/
+mobile-ionic/dist/
+mobile-ionic/.vite/
+
+# Capacitor generated native projects
+mobile-ionic/android/
+mobile-ionic/ios/
+
+# PlatformIO / ESP32
+.pio/
+.pioenvs/
+.piolibdeps/
+esp32-controller/.pio/
+esp32-controller/.vscode/.browse.c_cpp.db*
+esp32-controller/.vscode/c_cpp_properties.json
+esp32-controller/.vscode/launch.json
+esp32-controller/.vscode/ipch/
+
+# Local environment
+.env
+.env.*
+!.env.example
