@@ -1,7 +1,7 @@
 Przygotuj projekt składający się z dwóch części:
 
 1. Firmware ESP32 w Arduino/C++ lub PlatformIO.
-2. Aplikacja mobilna Android w .NET MAUI/C#.
+2. Aplikacja mobilna Ionic + Capacitor.
 
 Projekt ma umożliwiać sterowanie systemem podlewania szklarni:
 
@@ -145,7 +145,7 @@ Jeżeli użytkownik próbuje uruchomić pompę przy niskim poziomie wody, API po
 }
 
 Aplikacja mobilna:
-Przygotuj aplikację Android w .NET MAUI/C#.
+Przygotuj aplikację Ionic + Capacitor.
 
 Aplikacja ma mieć 4 główne ekrany:
 
@@ -218,72 +218,69 @@ Dolna nawigacja aplikacji:
 
 Struktura aplikacji mobilnej:
 
-MobileApp/
-├── Models/
-│ ├── ControllerStatus.cs
-│ ├── WaterTankStatus.cs
-│ └── IrrigationSchedule.cs
-├── Services/
-│ ├── Esp32ApiService.cs
-│ └── WifiScannerService.cs
-├── ViewModels/
-│ ├── WelcomeViewModel.cs
-│ ├── SearchGreenhouseViewModel.cs
-│ ├── MainViewModel.cs
-│ └── ScheduleViewModel.cs
-├── Views/
-│ ├── WelcomePage.xaml
-│ ├── SearchGreenhousePage.xaml
-│ ├── MainPage.xaml
-│ └── SchedulePage.xaml
-└── App.xaml
+mobile-ionic/
+├── capacitor.config.ts
+├── package.json
+└── src/
+    ├── models/
+    │   ├── ControllerStatus.ts
+    │   ├── WaterTankStatus.ts
+    │   └── IrrigationSchedule.ts
+    ├── services/
+    │   ├── esp32ApiService.ts
+    │   └── wifiScannerService.ts
+    ├── pages/
+    │   ├── WelcomePage.tsx
+    │   ├── SearchGreenhousePage.tsx
+    │   ├── MainPage.tsx
+    │   └── SchedulePage.tsx
+    ├── components/
+    └── theme/
 
 Model ControllerStatus powinien zawierać:
 
-public class ControllerStatus
-{
-public bool Pump { get; set; }
-public bool Valve1 { get; set; }
-public bool Valve2 { get; set; }
-public double DistanceCm { get; set; }
-public int WaterLevelPercent { get; set; }
-public double WaterLiters { get; set; }
-public double BarrelCapacityLiters { get; set; }
-public int WifiRssi { get; set; }
-public long UptimeMs { get; set; }
+export interface ControllerStatus {
+  pump: boolean;
+  valve1: boolean;
+  valve2: boolean;
+  distanceCm: number;
+  waterLevelPercent: number;
+  waterLiters: number;
+  barrelCapacityLiters: number;
+  wifiRssi: number;
+  uptimeMs: number;
 }
 
 Model harmonogramu:
 
-public class IrrigationSchedule
-{
-public string Name { get; set; }
-public List<DayOfWeek> Days { get; set; }
-public TimeSpan StartTime { get; set; }
-public string ValveMode { get; set; }
-public int DurationSeconds { get; set; }
-public bool IsEnabled { get; set; }
-public bool PreventRunWhenWaterLow { get; set; }
+export interface IrrigationSchedule {
+  name: string;
+  days: string[];
+  startTime: string;
+  valveMode: 'VALVE1' | 'VALVE2' | 'BOTH';
+  durationSeconds: number;
+  isEnabled: boolean;
+  preventRunWhenWaterLow: boolean;
 }
 
 Serwis Esp32ApiService powinien mieć metody:
 
-Task<ControllerStatus?> GetStatusAsync(string ipAddress);
+getStatus(ipAddress: string): Promise<ControllerStatus | null>;
 
-Task<bool> TurnPumpOnAsync(string ipAddress);
-Task<bool> TurnPumpOffAsync(string ipAddress);
+turnPumpOn(ipAddress: string): Promise<boolean>;
+turnPumpOff(ipAddress: string): Promise<boolean>;
 
-Task<bool> TurnValve1OnAsync(string ipAddress);
-Task<bool> TurnValve1OffAsync(string ipAddress);
+turnValve1On(ipAddress: string): Promise<boolean>;
+turnValve1Off(ipAddress: string): Promise<boolean>;
 
-Task<bool> TurnValve2OnAsync(string ipAddress);
-Task<bool> TurnValve2OffAsync(string ipAddress);
+turnValve2On(ipAddress: string): Promise<boolean>;
+turnValve2Off(ipAddress: string): Promise<boolean>;
 
-Task<bool> TurnAllOffAsync(string ipAddress);
+turnAllOff(ipAddress: string): Promise<boolean>;
 
-Task<bool> CreateScheduleAsync(string ipAddress, IrrigationSchedule schedule);
-Task<List<IrrigationSchedule>> GetSchedulesAsync(string ipAddress);
-Task<bool> DeleteScheduleAsync(string ipAddress, string scheduleName);
+createSchedule(ipAddress: string, schedule: IrrigationSchedule): Promise<boolean>;
+getSchedules(ipAddress: string): Promise<IrrigationSchedule[]>;
+deleteSchedule(ipAddress: string, scheduleId: string): Promise<boolean>;
 
 Dodaj obsługę błędów:
 

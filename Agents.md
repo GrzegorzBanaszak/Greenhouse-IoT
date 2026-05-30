@@ -3,7 +3,7 @@ Jesteś Claude Code pracującym w repozytorium projektu IoT Greenhouse Controlle
 Twoim zadaniem jest przygotowanie kompletnego projektu składającego się z dwóch części:
 
 1. Firmware dla ESP32 w Arduino/C++ albo PlatformIO.
-2. Aplikacja mobilna Android w .NET MAUI/C#.
+2. Aplikacja mobilna Ionic + Capacitor.
 
 Projekt ma służyć do sterowania systemem podlewania szklarni. ESP32 będzie sterować pompą, dwoma zaworami oraz mierzyć poziom wody w beczce za pomocą czujnika JSN-SR04T. Aplikacja mobilna ma łączyć się z kontrolerem ESP32, pokazywać poziom wody i umożliwiać ręczne oraz automatyczne sterowanie podlewaniem.
 
@@ -339,34 +339,24 @@ Automatyczne podlewanie powinno:
 Jeżeli pełna obsługa czasu rzeczywistego wymaga NTP, przygotuj kod tak, aby później można było dodać synchronizację czasu. Możesz dodać TODO i prosty interfejs czasu.
 
 ====================================================
-CZĘŚĆ 2 — APLIKACJA MOBILNA .NET MAUI
+CZĘŚĆ 2 — APLIKACJA MOBILNA IONIC + CAPACITOR
 ====================================================
 
-Przygotuj aplikację mobilną Android w .NET MAUI/C#.
+Przygotuj aplikację mobilną Ionic + Capacitor.
 
 Preferowana struktura:
 
-MobileApp/
-├── Models/
-│ ├── ControllerStatus.cs
-│ ├── WaterTankStatus.cs
-│ └── IrrigationSchedule.cs
-├── Services/
-│ ├── Esp32ApiService.cs
-│ └── WifiScannerService.cs
-├── ViewModels/
-│ ├── WelcomeViewModel.cs
-│ ├── SearchGreenhouseViewModel.cs
-│ ├── MainViewModel.cs
-│ └── ScheduleViewModel.cs
-├── Views/
-│ ├── WelcomePage.xaml
-│ ├── SearchGreenhousePage.xaml
-│ ├── MainPage.xaml
-│ └── SchedulePage.xaml
-└── App.xaml
+mobile-ionic/
+├── capacitor.config.ts
+├── package.json
+└── src/
+  ├── components/
+  ├── models/
+  ├── pages/
+  ├── services/
+  └── theme/
 
-Jeżeli projekt .NET MAUI jeszcze nie istnieje, utwórz go.
+Jeżeli projekt Ionic + Capacitor jeszcze nie istnieje, utwórz go.
 Jeżeli istnieje, dopasuj się do obecnej struktury.
 
 ====================================================
@@ -521,48 +511,45 @@ Formularz dodawania harmonogramu:
 - przycisk "Zapisz harmonogram".
 
 ====================================================
-MODELE C#
+MODELE TYPESCRIPT
 ====================================================
 
 Dodaj model ControllerStatus:
 
-public class ControllerStatus
-{
-public bool Pump { get; set; }
-public bool Valve1 { get; set; }
-public bool Valve2 { get; set; }
-public double DistanceCm { get; set; }
-public int WaterLevelPercent { get; set; }
-public double WaterLiters { get; set; }
-public double BarrelCapacityLiters { get; set; }
-public int WifiRssi { get; set; }
-public long UptimeMs { get; set; }
-public string Mode { get; set; }
-public string Ssid { get; set; }
-public string IpAddress { get; set; }
+export interface ControllerStatus {
+  pump: boolean;
+  valve1: boolean;
+  valve2: boolean;
+  distanceCm: number;
+  waterLevelPercent: number;
+  waterLiters: number;
+  barrelCapacityLiters: number;
+  wifiRssi: number;
+  uptimeMs: number;
+  mode: string;
+  ssid: string;
+  ipAddress: string;
 }
 
 Dodaj model IrrigationSchedule:
 
-public class IrrigationSchedule
-{
-public string Id { get; set; }
-public string Name { get; set; }
-public List<DayOfWeek> Days { get; set; }
-public TimeSpan StartTime { get; set; }
-public string ValveMode { get; set; }
-public int DurationSeconds { get; set; }
-public bool IsEnabled { get; set; }
-public bool PreventRunWhenWaterLow { get; set; }
+export interface IrrigationSchedule {
+  id: string;
+  name: string;
+  days: string[];
+  startTime: string;
+  valveMode: 'VALVE1' | 'VALVE2' | 'BOTH';
+  durationSeconds: number;
+  isEnabled: boolean;
+  preventRunWhenWaterLow: boolean;
 }
 
 Dodaj model WifiNetworkInfo:
 
-public class WifiNetworkInfo
-{
-public string Ssid { get; set; }
-public int SignalStrength { get; set; }
-public bool IsConnected { get; set; }
+export interface WifiNetworkInfo {
+  ssid: string;
+  signalStrength: number;
+  isConnected: boolean;
 }
 
 ====================================================
@@ -573,22 +560,22 @@ Dodaj klasę Esp32ApiService.
 
 Metody:
 
-Task<ControllerStatus?> GetStatusAsync(string ipAddress);
+getStatus(ipAddress: string): Promise<ControllerStatus | null>;
 
-Task<bool> TurnPumpOnAsync(string ipAddress);
-Task<bool> TurnPumpOffAsync(string ipAddress);
+turnPumpOn(ipAddress: string): Promise<boolean>;
+turnPumpOff(ipAddress: string): Promise<boolean>;
 
-Task<bool> TurnValve1OnAsync(string ipAddress);
-Task<bool> TurnValve1OffAsync(string ipAddress);
+turnValve1On(ipAddress: string): Promise<boolean>;
+turnValve1Off(ipAddress: string): Promise<boolean>;
 
-Task<bool> TurnValve2OnAsync(string ipAddress);
-Task<bool> TurnValve2OffAsync(string ipAddress);
+turnValve2On(ipAddress: string): Promise<boolean>;
+turnValve2Off(ipAddress: string): Promise<boolean>;
 
-Task<bool> TurnAllOffAsync(string ipAddress);
+turnAllOff(ipAddress: string): Promise<boolean>;
 
-Task<List<IrrigationSchedule>> GetSchedulesAsync(string ipAddress);
-Task<bool> CreateScheduleAsync(string ipAddress, IrrigationSchedule schedule);
-Task<bool> DeleteScheduleAsync(string ipAddress, string scheduleId);
+getSchedules(ipAddress: string): Promise<IrrigationSchedule[]>;
+createSchedule(ipAddress: string, schedule: IrrigationSchedule): Promise<boolean>;
+deleteSchedule(ipAddress: string, scheduleId: string): Promise<boolean>;
 
 Bazowy adres ESP32:
 
@@ -611,11 +598,8 @@ WIFI SCANNER SERVICE
 
 Dodaj interfejs:
 
-public interface IWifiScannerService
-{
-Task<List<WifiNetworkInfo>> ScanForGreenhouseNetworksAsync();
-Task<bool> ConnectToNetworkAsync(string ssid);
-}
+scanForGreenhouseNetworks(): Promise<WifiNetworkInfo[]>;
+connectToNetwork(ssid: string): Promise<boolean>;
 
 Dodaj implementację mock/dev, która zwraca przykładowe sieci:
 
@@ -626,47 +610,47 @@ Jeżeli jesteś w stanie dodać implementację Android, dodaj ją z odpowiednimi
 Jeżeli Android ogranicza automatyczne łączenie z Wi-Fi, przygotuj kod tak, aby użytkownik mógł wybrać sieć i przejść do ustawień Wi-Fi.
 
 ====================================================
-VIEWMODELE
+STAN I HOOKI UI
 ====================================================
 
-Dodaj ViewModele:
+Dodaj logikę stanu dla ekranów:
 
-WelcomeViewModel
-SearchGreenhouseViewModel
-MainViewModel
-ScheduleViewModel
+useWelcomeController
+useSearchGreenhouseController
+useMainController
+useScheduleController
 
 Użyj MVVM.
 
-Każdy ViewModel powinien obsługiwać:
+Każdy ekran powinien obsługiwać:
 
 - IsBusy,
 - ErrorMessage,
 - podstawową walidację,
 - komendy użytkownika.
 
-MainViewModel powinien mieć komendy:
+Ekran sterowania powinien mieć akcje:
 
-RefreshStatusCommand
-TurnPumpOnCommand
-TurnPumpOffCommand
-TurnValve1OnCommand
-TurnValve1OffCommand
-TurnValve2OnCommand
-TurnValve2OffCommand
-TurnAllOffCommand
+refreshStatus
+turnPumpOn
+turnPumpOff
+turnValve1On
+turnValve1Off
+turnValve2On
+turnValve2Off
+turnAllOff
 
-ScheduleViewModel powinien mieć komendy:
+Ekran harmonogramów powinien mieć akcje:
 
-LoadSchedulesCommand
-AddScheduleCommand
-DeleteScheduleCommand
-ToggleScheduleCommand
+loadSchedules
+addSchedule
+deleteSchedule
+toggleSchedule
 
-SearchGreenhouseViewModel powinien mieć komendy:
+Ekran wyszukiwania powinien mieć akcje:
 
-ScanNetworksCommand
-ConnectCommand
+scanNetworks
+connect
 
 ====================================================
 UI / UX
@@ -715,7 +699,7 @@ README ma zawierać:
 7. Endpointy API.
 8. Opis ekranów aplikacji mobilnej.
 9. Instrukcję uruchomienia firmware ESP32.
-10. Instrukcję uruchomienia aplikacji .NET MAUI.
+10. Instrukcję uruchomienia aplikacji Ionic + Capacitor.
 11. Zasady bezpieczeństwa.
 12. Plan dalszego rozwoju.
 
@@ -767,10 +751,10 @@ Pracuj w następującej kolejności:
    - obliczanie poziomu wody,
    - HTTP API,
    - zabezpieczenia.
-5. Zaimplementuj aplikację .NET MAUI:
+5. Zaimplementuj aplikację Ionic + Capacitor:
    - modele,
    - serwisy,
-   - ViewModele,
+   - stan i hooki UI,
    - widoki,
    - nawigację.
 6. Dodaj mock Wi-Fi scanner.
